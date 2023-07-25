@@ -1,6 +1,5 @@
 import { check, validationResult } from "express-validator";
 import jwt from "jsonwebtoken";
-import geoip from "geoip-lite";
 import bcrypt from "bcrypt";
 import UserModel, { IUser } from "../models/User";
 import environment from "../configs/index";
@@ -42,9 +41,7 @@ const authController = {
 
   register: async (req: any, res: any) => {
     const ip = req.clientIp;
-    const geo = geoip.lookup(ip);
     console.log("ip: ", ip);
-    console.log("geo: ", geo);
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).send({ error: errors.array()[0].msg });
