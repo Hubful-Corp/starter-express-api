@@ -3,7 +3,6 @@ import express from "express";
 import path from "path";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import SocketIO from "socket.io";
 
 import requestIp from "request-ip";
 
@@ -21,11 +20,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(requestIp.mw());
 const httpServer = new http.Server(app);
-const io = new SocketIO.Server(httpServer, {
-  cors: {
-    methods: ["GET", "POST"],
-  },
-}).of("/socket");
 app.use("/", router);
 connectDatabase();
 
