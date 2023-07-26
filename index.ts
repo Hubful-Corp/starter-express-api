@@ -10,7 +10,6 @@ import requestIp from "request-ip";
 import router from "./src/routes";
 import { connectDatabase } from "./src/configs/db";
 import environment from "./src/configs";
-import socketProvider from "./src/socket/index";
 
 var app = express();
 app.use(cors());
@@ -27,7 +26,6 @@ const io = new SocketIO.Server(httpServer, {
     methods: ["GET", "POST"],
   },
 }).of("/socket");
-socketProvider(io);
 app.use("/", router);
 connectDatabase();
 
